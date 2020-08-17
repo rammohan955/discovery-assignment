@@ -30,7 +30,7 @@ public class ShortestPathController {
     public ResponseEntity<List<String>> getShortestPath(
             @NotBlank @RequestParam(value = "source", required = true) String source,
             @NotBlank @RequestParam(value = "destination", required = true) String destination) {
-        return new ResponseEntity<>(shortestPathService.getShortestPathBetweenNodes(source, destination),
+        return new ResponseEntity<>(shortestPathService.getShortestPathBetweenPlanets(source, destination),
                 HttpStatus.OK);
 
     }

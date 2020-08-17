@@ -11,15 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import za.co.discovery.assignment.dao.entity.Planet;
 import za.co.discovery.assignment.exception.ErrorRedirector;
-import za.co.discovery.assignment.service.PlanetService;
 import za.co.discovery.assignment.service.ShortestPathService;
 
-import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -36,7 +32,7 @@ public class ShortestPathControllerTest {
 
     @Test
     public void getShortestPathTest(){
-        when(shortestPathService.getShortestPathBetweenNodes("Earth","Mars")).thenReturn(Arrays.asList("Earth","Moon"));
+        when(shortestPathService.getShortestPathBetweenPlanets("Earth","Mars")).thenReturn(Arrays.asList("Earth","Moon"));
         ShortestPathController shortestPathController = new ShortestPathController(shortestPathService);
         ResponseEntity<List<String>> responseEntity = shortestPathController.getShortestPath("Earth","Mars");
         Assertions.assertEquals(Arrays.asList("Earth","Moon"),responseEntity.getBody());

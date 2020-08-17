@@ -13,11 +13,9 @@ import za.co.discovery.assignment.model.Node;
 import javax.validation.ValidationException;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
@@ -37,14 +35,14 @@ public class ShortestPathServiceTest {
     @Test
     public void getShortestPathBetweenNodes_WithNoMappingSourceTest(){
         when(planetService.getPlanetByName("A")).thenReturn(null);
-        Assertions.assertThrows(ValidationException.class,() -> shortestPathService.getShortestPathBetweenNodes("A","B"));
+        Assertions.assertThrows(ValidationException.class,() -> shortestPathService.getShortestPathBetweenPlanets("A","B"));
     }
 
     @Test
     public void getShortestPathBetweenNodes_WithNoMappingDestinationTest(){
         when(planetService.getPlanetByName("A")).thenReturn(new Planet());
         when(planetService.getPlanetByName("B")).thenReturn(null);
-        Assertions.assertThrows(ValidationException.class,() -> shortestPathService.getShortestPathBetweenNodes("A","B"));
+        Assertions.assertThrows(ValidationException.class,() -> shortestPathService.getShortestPathBetweenPlanets("A","B"));
     }
 
     @Test
@@ -60,7 +58,7 @@ public class ShortestPathServiceTest {
         when(planetService.getPlanetByName("A")).thenReturn(planet1);
         when(planetService.getPlanetByName("E")).thenReturn(planet2);
         when(graphService.createGraphUsingDataFromDb()).thenReturn(new Graph(Collections.emptySet(),Collections.emptyMap()));
-        Assertions.assertThrows(RuntimeException.class,() -> shortestPathService.getShortestPathBetweenNodes("A","E"));
+        Assertions.assertThrows(RuntimeException.class,() -> shortestPathService.getShortestPathBetweenPlanets("A","E"));
     }
 
     @Test
@@ -79,7 +77,7 @@ public class ShortestPathServiceTest {
         Set<Node> nodeSet = Set.of(new Node("A"));
         Map<String,Node> nodeMap = Map.of("A",new Node("A"));
         when(graphService.createGraphUsingDataFromDb()).thenReturn(new Graph(nodeSet,nodeMap));
-        Assertions.assertThrows(RuntimeException.class,() -> shortestPathService.getShortestPathBetweenNodes("A","E"));
+        Assertions.assertThrows(RuntimeException.class,() -> shortestPathService.getShortestPathBetweenPlanets("A","E"));
     }
 
     @Test
@@ -96,7 +94,7 @@ public class ShortestPathServiceTest {
         when(planetService.getPlanetByName("C")).thenReturn(planet2);
 
         when(graphService.createGraphUsingDataFromDb()).thenReturn(getGraph());
-        List<String> shortestPath = shortestPathService.getShortestPathBetweenNodes("A","C");
+        List<String> shortestPath = shortestPathService.getShortestPathBetweenPlanets("A","C");
         Assertions.assertNotNull(shortestPath);
         Assertions.assertEquals(1,shortestPath.size());
     }
@@ -116,7 +114,7 @@ public class ShortestPathServiceTest {
         when(planetService.getAllPlanets()).thenReturn(Arrays.asList(planet1,planet2));
 
         when(graphService.createGraphUsingDataFromDb()).thenReturn(getGraph());
-        List<String> shortestPath = shortestPathService.getShortestPathBetweenNodes("A","C");
+        List<String> shortestPath = shortestPathService.getShortestPathBetweenPlanets("A","C");
         Assertions.assertNotNull(shortestPath);
         Assertions.assertEquals(1,shortestPath.size());
     }

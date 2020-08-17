@@ -27,7 +27,7 @@ public class GraphServiceTest {
 
     @Test
     @Description("When DB has no data")
-    public void createGraphUsingDataFromDbTest_1(){
+    public void createGraphUsingDataFromDbTest_NoDataInDb(){
         when(routeService.findAllRoutes()).thenReturn(Collections.emptyList());
         Graph graph = graphService.createGraphUsingDataFromDb();
         Assertions.assertNotNull(graph);
@@ -39,7 +39,7 @@ public class GraphServiceTest {
 
     @Test
     @Description("When DB has some data")
-    public void createGraphUsingDataFromDbTest_2(){
+    public void createGraphUsingDataFromDbTest_ValidDatainDb(){
         when(routeService.findAllRoutes()).thenReturn(getRouteObjects());
         Graph graph = graphService.createGraphUsingDataFromDb();
         Assertions.assertNotNull(graph);
